@@ -1,24 +1,99 @@
 let isSizeInitialized = false;
 
 let numRows;
-let numCols;
-
 let Data;
+let numIterations = -1;
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
 
 $('#get-graph-button').click(function(event) {
     event.preventDefault();
     
+    if(!numRows && !Data) {
+        swal("Error!", "Please input data!", "error");
+        return;
+    }
+
     let option = $('.input-container select').val();
     
     console.log(option);
     console.log(Data);
 
-    swal("Success!", "Visualization created, Please scroll down!", "success")
-    .then(() => {
-        candelStickChart();
+    switch(option) {
+        case 'Candelstick Chart':
+            candelStickChart(Data);
+            $('#download').removeClass('display-none');
+            break;
+
+        case 'Bar Graph':
+            barGraph(Data);
+            $('#download').removeClass('display-none');
+            break;
+
+        case 'Pie Chart': 
+            pieChart(Data);
+            $('#download').removeClass('display-none');
+            break;
+
+        case 'Donut Chart':
+            donutChart(Data);
+            $('#download').removeClass('display-none');
+            break;
+
+        case 'Line Chart':
+            lineChart(Data);
+            $('#download').removeClass('display-none');
+            break;
+
+        case 'Geo Chart':
+            geoChart(Data);
+            $('#download').removeClass('display-none');
+            break;
+
+        case 'Word Trees':
+            wordTrees(Data);
+            break;
+
+        default: break;
+    }
+    swal("Success!", "Visualization created, Please scroll down!", "success");
 });
-    
-    
+
+$('#choose').click(function() {
+    option = $('.input-container select').val();
+
+    switch (option) {
+        case 'Candelstick Chart':
+            numIterations = 4;
+            break;
+        case "Bar Graph":
+            numIterations = 1;
+            break;
+        case "Pie Chart":
+            numIterations = 1;
+            break;
+        case "Donut Chart":
+            numIterations = 1;
+            break;
+        case "Line Chart":
+            numIterations = 2;
+            break;
+        case "Geo Chart":
+            numIterations = 1;
+            break;
+        case "Word Trees":
+            numIterations = 0;
+            break;
+        default:
+            break;
+    }
 });
 
 
@@ -31,19 +106,23 @@ $('#row-size').click(function(event) {
     }
 
     numRows = $('#row-data').val();
-    numCols = $('#column-data').val();
 
-    if(numRows <= 0 || numCols <= 0) {
-        swal("Error!", "Please enter valid rows and columns", "error");
+    if(numRows <= 0) {
+        swal("Error!", "Please enter valid rows", "error");
         return;
     }
 
-    if(numCols > 10) {
-        swal("Warning!", "Please enter Column size less than 10", "warning");
+    if(numRows > 20) {
+        swal("Error!", "You can input only upto 20 rows", "error");
         return;
     }
+
+    $('#data-input-container').addClass("display-table-form");
+    $('#data-table').addClass("display-table-form");
 
     isSizeInitialized = true;
+    $('#data-input-container').removeClass('display-none');
+    $('#data-table').removeClass('display-none');
 
     Data = new Array(numRows);
     for(let i = 0; i < numRows; i++) {
@@ -70,8 +149,8 @@ $('#row-size').click(function(event) {
 
 let j = 0;
 $('#next-column').click(function() {
-    if(j > 4) {
-        swal("Warning!", "You can only enter data four times!", "warning");
+    if (j > numIterations) {
+        swal("Error!", `No further column can be filled!`, "error");
         return;
     }
 
@@ -90,36 +169,294 @@ $('#next-column').click(function() {
 
     $('#data-input-form').html('');
 
-    for(let i = 1; i <= numRows; i++) {
-        let inputContainer = $(`
-            <div class="input-container">
-                <label>Row ${j} -  Column ${i}:</label>
-                <input id="input-col-${i}" type="number" placeholder="Data">
-            </div>`
-        );
-        $('#data-input-form').append(inputContainer);
+    if(j < numIterations) {
+        for(let i = 1; i <= numRows; i++) {
+            let inputContainer = $(`
+                <div class="input-container">
+                    <label>Row ${j} -  Column ${i}:</label>
+                    <input id="input-col-${i}" type="number" placeholder="Data">
+                </div>`
+            );
+            $('#data-input-form').append(inputContainer);
+        }
+    } else {
+       $('#data-input-container').addClass('display-none')
+        $('#data-input-container').removeClass('display-table-form');
+
+
     }
 
     j++;
 });
 
 
-let candelStickChart = function() {
+let candelStickChart = function(localData) {
     let w = 250 * numRows;
-    $('#chart-div').width(w);
+    $('#chart-div').width(w + 'px');
+
+    $('#chart-div').height(500 + 'px');
 
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
 
-  function drawChart() {
-    var data = google.visualization.arrayToDataTable(Data, true);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable(localData, true);
 
-    var options = {
-      legend:'none'
-    };
+        var options = {
+        legend:'none'
+        };
 
-    var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
+        var chart_div = document.getElementById('chart_div');
+        var chart = new google.visualization.CandlestickChart(chart_div);
 
-    chart.draw(data, options);
-  }
+        google.visualization.events.addListener(chart, 'ready', function() {
+            $('#chartPng').attr('href', chart.getImageURI());
+            $('#chartPng').attr('download', 'candle'); 
+        });
+
+        chart.draw(data, options);
+    }
+} 
+
+let barGraph = function(localData) {
+    let propertyHeading = $('#property-heading').val();
+    let dataHeading = $('#data-heading').val();
+    let _title = $('#title').val();
+    
+    let w = 250 * numRows;
+    $('#barchart_values').width(w + 'px');
+
+    $('#barchart_values').height(500 + 'px');
+
+    for (let i = numRows - 1; i >= 0; i--) {
+        localData[i][2] = getRandomColor();
+        localData[i + 1] = localData[i];
+    }
+
+    localData[0] = [propertyHeading, dataHeading, { role: 'style' }];
+    console.log(localData);
+
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable(localData);
+
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1,
+                        { calc: "stringify",
+                            sourceColumn: 1,
+                            type: "string",
+                            role: "annotation" },
+                        2]);
+
+        var options = {
+            title: _title,
+            width: 600,
+            height: 400,
+            bar: {groupWidth: "95%"},
+            legend: { position: "none" },
+        };
+
+        var barchart_values = document.getElementById("barchart_values");
+        var chart = new google.visualization.BarChart(barchart_values);
+
+        google.visualization.events.addListener(chart, 'ready', function() {
+            $('#chartPng').attr('href', chart.getImageURI());
+            $('#chartPng').attr('download', 'bar'); 
+        });
+
+        chart.draw(data, options);
+    }
+}
+
+let pieChart = function(localData) {
+
+    let propertyHeading = $('#property-heading').val();
+    let dataHeading = $('#data-heading').val();
+    let _title = $('#title').val();
+
+    console.log(propertyHeading);
+    console.log(dataHeading);
+
+
+    let w = 900;
+    $('#piechart').width(w + 'px');
+
+    $('#piechart').height(500 + 'px');
+
+
+    for (let i = numRows - 1; i >= 0; i--) {
+        localData[i + 1] = localData[i];
+    }
+
+    localData[0] = [propertyHeading, dataHeading];
+
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      var data = google.visualization.arrayToDataTable(localData);
+
+      var options = {
+        title: _title,
+      };
+
+      var _piechart = document.getElementById('piechart');
+        var chart = new google.visualization.PieChart(_piechart);
+
+        google.visualization.events.addListener(chart, 'ready', function() {
+            $('#chartPng').attr('href', chart.getImageURI());
+            $('#chartPng').attr('download', 'pie'); 
+        });
+
+        chart.draw(data, options);
+    }
+}
+
+let donutChart = function(local_data) {
+    let propertyHeading = $('#property-heading').val();
+    let dataHeading = $('#data-heading').val();
+    let _title = $('#title').val();
+
+    let w = 900;
+    $('#donutchart').width(w + 'px');
+
+    $('#donutchart').height(500 + 'px');
+
+
+    for (let i = numRows - 1; i >= 0; i--) {
+        local_data[i + 1] = local_data[i];
+    }
+    local_data[0] = [propertyHeading, dataHeading];
+    google.charts.load("current", { packages: ["corechart"] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable(local_data);
+
+        var options = {
+            title: _title,
+            pieHole: 0.4,
+        };
+
+        var _donutchart = document.getElementById('donutchart');
+        var chart = new google.visualization.PieChart(_donutchart);
+
+        google.visualization.events.addListener(chart, 'ready', function() {
+            $('#chartPng').attr('href', chart.getImageURI());
+            $('#chartPng').attr('download', 'donut'); 
+        });
+
+        chart.draw(data, options);
+    }
+}
+
+let lineChart = function(localData) {
+    let propertyHeading = $('#property-heading').val();
+    let dataHeadingOne = $('#data-heading-one').val();
+    let dataHeadingTwo = $('#data-heading-two').val();
+    let _title = $('#title').val();
+
+    let w = 900;
+    $('#curve_chart').width(w + 'px');
+
+    $('#curve_chart').height(500 + 'px');
+
+    for (let i = numRows - 1; i >= 0; i--) {
+        localData[i + 1] = localData[i];
+    }
+
+    localData[0] = [propertyHeading, dataHeadingOne, dataHeadingTwo],
+    console.log(localData);
+
+    google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(localData);
+
+        var options = {
+          title: _title,
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var curve_chart = document.getElementById('curve_chart');
+        var chart = new google.visualization.LineChart(curve_chart);
+        google.visualization.events.addListener(chart, 'ready', function() {
+            $('#chartPng').attr('href', chart.getImageURI());
+            $('#chartPng').attr('download', 'line'); 
+        });
+
+        chart.draw(data, options);
+    }
+}
+
+let geoChart = function(localData) {
+    let dataHeadingOne = $('#data-heading').val();
+    
+    let w = 900;
+    $('#regions_div').width(w + 'px');
+
+    $('#regions_div').height(500 + 'px');
+
+    for (let i = numRows - 1; i >= 0; i--) {
+        localData[i + 1] = localData[i];
+    }
+    localData[0] = ["Country", dataHeadingOne];
+
+    google.charts.load('current', {
+        'packages': ['geochart'],
+    });
+    google.charts.setOnLoadCallback(drawRegionsMap);
+
+    function drawRegionsMap() {
+        var data = google.visualization.arrayToDataTable(localData);
+
+        var options = {};
+
+        var regions_div = document.getElementById('regions_div');
+        var chart = new google.visualization.GeoChart(regions_div);
+
+        google.visualization.events.addListener(chart, 'ready', function() {
+            $('#chartPng').attr('href', chart.getImageURI());
+            $('#chartPng').attr('download', 'geo'); 
+        });
+
+        chart.draw(data, options);
+    }
+} 
+
+let wordTrees = function(localData) {
+    let rootWord = $('#root-word').val();
+
+    let w = 900;
+    $('#wordtree_basic').width(w + 'px');
+
+    $('#wordtree_basic').height(500 + 'px');
+
+    for (let i = numRows - 1; i >= 0; i--) {
+        localData[i + 1] = localData[i];
+    }
+    localData[0] = ['Phrases'];
+
+    google.charts.load('current', {packages:['wordtree']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable(localData);
+
+        var options = {
+            wordtree: {
+            format: 'implicit',
+            word: rootWord
+            }
+        };
+
+        var wordtree_basic = document.getElementById('wordtree_basic');
+        var chart = new google.visualization.WordTree(wordtree_basic);
+
+        chart.draw(data, options);
+    }
 }

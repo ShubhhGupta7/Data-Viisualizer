@@ -6,21 +6,77 @@ body {
     font-size: 20px;
 
     font-family: 'Hina Mincho', serif;
-
+    
     color: #504d4d;
+
+    background-color: whitesmoke;
 }
 
 header {
+    position: fixed;
+    top: 0;
     height: 10vh;
+    width: 100vw;
+
+    font-family: Roboto;
+    font-weight: 600;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+
+    border-bottom: lightgrey;
+    box-shadow: 1px 0px 6px 1px lightgrey;
+    background-color: #ca2424;
+    color: white;
+
+    letter-spacing: .5px;
+    z-index: 3;
+}
+
+nav {
+    width: 30vw;
+    min-width: 300px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+header nav span a {
+    color: white;
+    text-decoration: none;
+
+    font-size: 1.2rem;
+    
+    font-weight: bold;
+}
+
+header nav span a:hover {
+    transition: all .5s;
+
+    font-size: 1.3rem;
+    font-weight: bolder;
+
+    border-bottom: 3px solid;
 }
 
 main {
+    padding-top: 10vh;
+    
+    margin: 3rem 0rem;
     min-height: 80vh;
-
+    
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
+
+    justify-content: space-evenly;
 }
 
 form {
@@ -30,7 +86,7 @@ form {
     align-items: center;
 
     width: 30vw;
-    min-width: 300px;
+    min-width: 350px;
 }
 
 #form-header {
@@ -38,7 +94,7 @@ form {
 }
 
 .input-container {
-    width: 350px;
+    width: 400px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -47,13 +103,52 @@ form {
 
 input {
     margin: .5rem;
+    border: none;
+    border-radius: 0.4rem;
+    background-color: #eceaea;
+
+    padding: 0.5rem 0.7rem;
+}
+
+input:focus {
+    outline: none;
+}
+
+select {
+    margin: .5rem;
+    border: none;
+    border-radius: 0.4rem;
+    background-color: #eceaea;
+
+    padding: 0.5rem 0.7rem;
+}
+
+select:focus {
+    outline: none;
 }
 
 button {
     margin: 1.5rem;
     padding: .3rem;
+
+    border: none;
+    background-color: blue;
+    color: white;
+    border-radius: 0.4rem;
+
+    padding: .3rem 0.7rem;
+    font-size: 1.1rem;
+} 
+
+button:hover {
+    transition: all 0.5s;
+    background-color: darkblue;
+    color: whitesmoke;
 }
 
+#row-size {
+    visibility: hidden;
+}
 
 #input-table-container {
     margin: 2rem;
@@ -65,13 +160,16 @@ button {
     flex-direction: row;
     flex-wrap: wrap;
 }
+
+#data-input-container {
+    box-shadow: 1px 0px 6px 1px lightgrey; 
+    padding: 2rem;
+    background-color: white;
+}
+
 #data-input-form {
     width: 25vw;
     min-width: 300px;
-}
-
-footer {
-    height: 10vh;
 }
 
 #get-graph-button-container {
@@ -88,11 +186,124 @@ footer {
     justify-content: center;
     align-self: center;
     
-    width: 60vw;
-    min-width: 700px;
+    width: 38vw;
+    min-width: 500px;
 }
 
 td {
-    height: 30px;
-    width: 100px;
+    min-width: 100px;
+    min-height: 30px;
+
+    max-width: 300px;
+
+    text-align: left;
+    padding: 1rem;
+}
+
+#data-input-form {
+    height: 40vh;
+    width: 30vw;
+    overflow-y: scroll;
+    background-color: white;
+    min-width: 400px;
+}
+
+#data-input-form::-webkit-scrollbar {
+    display: none;
+  }
+
+#floating-about {
+    right: 32vw;
+    top: 10vh;
+    position: fixed;
+    height: 20rem;
+    width: 30rem;
+    background-color: #f1dada;
+
+    text-align: left;
+    border-radius: 0.8rem;
+    border-bottom: lightgrey;
+    box-shadow: 1px 0px 6px 1px grey; 
+    visibility: collapse;
+}
+
+.display-table-form {
+    visibility: visible !important;
+    animation: 1s fadeIn !important;
+}
+
+#cancel {
+    background: none;
+    border: none;
+}
+
+#cancel:hover {
+    color: blue;
+}
+
+
+#about {
+    margin: 2rem;
+    color:black;
+ 
+}
+
+footer {
+    background-color: white;
+}
+
+.display-none {
+    visibility: collapse !important;
+}
+
+.display {
+    visibility: visible !important;
+}
+
+#input-graph-form-container {
+    box-shadow: 1px 0px 6px 1px lightgrey;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    background-color: white;
+
+}
+
+.dimension-container {
+    box-shadow: 1px 0px 6px 1px lightgrey;
+    padding: 2rem;
+    background-color: white;
+}
+
+table {
+    margin: 1rem;
+    box-shadow: 1px 0px 6px 1px grey;
+    border-collapse: collapse;
+}
+
+tr:nth-child(even) {
+    background-color: lightgray;
+}
+
+#download {
+    padding: 3rem;
+}
+
+#chartPng, #reset {
+    text-decoration: none;
+    color: blue;
+    padding: 0.3rem 0.7rem;
+    background-color: none;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+#chartPng:hover {
+    transition: all 0..5s;
+    background-color: lightcyan;
+    box-shadow: 0px 0px 6px 1px lightgray;
+}
+
+#reset:hover {
+    transition: all 0.5s;
+    color: lightblue;
 }
