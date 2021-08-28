@@ -64,7 +64,7 @@ $('#get-graph-button').click(function(event) {
 
         default: break;
     }
-    swal("Success!", "Visualization created, Please scroll down!", "success");
+    swal("Created!", "Please scroll down!", "success");
 });
 
 $('#choose').click(function() {
