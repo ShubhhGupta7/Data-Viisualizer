@@ -8,6 +8,7 @@ body {
     font-family: 'Hina Mincho', serif;
     
     color: #504d4d;
+    min-width: 550px;
 }
 
 header {
@@ -31,6 +32,7 @@ header {
     color: white;
 
      letter-spacing: .5px;
+     min-width: 550px;
 }
 
 main {

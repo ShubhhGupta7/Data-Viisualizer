@@ -4,6 +4,7 @@ let numRows;
 let Data;
 let numIterations = -1;
 
+
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
     var color = '#';
@@ -115,12 +116,100 @@ $('#row-size').click(function(event) {
     if(numRows > 20) {
         swal("Error!", "You can input only upto 20 rows", "error");
         return;
+    }   
+
+    let propertyHeading;
+    let dataHeading;
+    let dataHeadingOne;
+    let dataHeadingTwo;
+    let tableHeader;
+    option = $('.input-container select').val();
+    switch (option) {
+        case "Bar Graph":
+            propertyHeading = $('#property-heading').val();
+            dataHeading = $('#data-heading').val();
+
+            tableHeader = $(`
+                <tr> 
+                    <td> ${propertyHeading} </td>
+                    <td> ${dataHeading} </td>
+                </tr>
+            `);    
+            $('table').prepend(tableHeader); 
+            break;
+
+        case "Pie Chart":
+            propertyHeading = $('#property-heading').val();
+            dataHeading = $('#data-heading').val();
+
+            tableHeader = $(`
+                <tr> 
+                    <td> ${propertyHeading} </td>
+                    <td> ${dataHeading} </td>
+                </tr>
+            `);    
+            $('table').prepend(tableHeader);
+            break;
+
+        case "Donut Chart":
+            propertyHeading = $('#property-heading').val();
+            dataHeading = $('#data-heading').val();
+
+             tableHeader = $(`
+                <tr> 
+                    <td> ${propertyHeading} </td>
+                    <td> ${dataHeading} </td>
+                </tr>
+            `);    
+            $('table').prepend(tableHeader); 
+            break;
+
+        case "Line Chart":
+             propertyHeading = $('#property-heading').val();
+             dataHeadingOne = $('#data-heading-one').val();
+             dataHeadingTwo = $('#data-heading-two').val();
+
+             tableHeader = $(`
+                <tr> 
+                    <td> ${propertyHeading} </td>
+                    <td> ${dataHeadingOne} </td>
+                    <td> ${dataHeadingTwo} </td>
+                </tr>
+            `);   
+            $('table').prepend(tableHeader); 
+            break;
+
+        case "Geo Chart":
+             dataHeadingOne = $('#data-heading').val();
+            tableHeader = $(`
+            <tr> 
+                    <td> Country </td>
+                    <td> ${dataHeadingOne} </td>
+                </tr>
+            `);
+            $('table').prepend(tableHeader);
+            
+            break;
+
+        case "Word Trees":
+             tableHeader = $(`
+                <tr> 
+                    <td> Phrases </td>
+                </tr>
+            `);  
+
+            $('table').prepend(tableHeader);
+            break;
+
+        default:
+            break;
     }
+ 
+    isSizeInitialized = true;
 
     $('#data-input-container').addClass("display-table-form");
     $('#data-table').addClass("display-table-form");
 
-    isSizeInitialized = true;
     $('#data-input-container').removeClass('display-none');
     $('#data-table').removeClass('display-none');
 
