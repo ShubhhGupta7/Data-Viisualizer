@@ -3,8 +3,7 @@ let isSizeInitialized = false;
 let numRows;
 let Data;
 let numIterations = -1;
-
-
+    
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
     var color = '#';
