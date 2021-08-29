@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualizer</title>
+
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" style="color: antiquewhite;">
+
+    <link rel="stylesheet" href="/css/index.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font-Awosome CDN -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <!-- Animate.css CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+
+     <!-- Google Chart API -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+
+</head>
+<body>
+    
+    <header>
+        <div id="website-name">
+            <i class="fas fa-chart-pie" style="color: white; font-size: 2.5rem;"></i>
+            <span style="vertical-align: super;">SK Data Visualizer</span> 
+        </div>
+
+        <nav>
+            <span>
+                <a href="/data-visualizer/chart-gallery">
+                    Chart Gallery
+                </a>            
+            </span>
+            <span>
+                <a href="/data-visualizer/tool">
+                    Tool
+                </a>
+            </span>
+            <span>
+                <a href="/data-visualizer/about">
+                About
+                </a>
+            </span>
+        </nav>
+    </header>
+
+    <main class="animate__animated animate__slideInDown">
+        
+        <div id="input-graph-form-container">
+            <form action="">
+                <div class="input-container" style="width: 350px;">
+                    <label>Select a Visualization:</label>
+                    <select name="" id="">
+                        <option value="None">Select</option>
+                        <option value="Bar Graph">Bar Graph</option>
+                        <option value="Pie Chart">Pie Chart</option>
+                        <option value="Candelstick Chart">Candlestick Chart</option>
+                        <option value="Donut Chart">Donut Chart</option>
+                        <option value="Line Chart">Line Chart</option>
+                        <option value="Geo Chart">Geo Chart</option>
+                        <option value="Word Trees">Word Trees</option>
+                    </select>
+                </div>
+                <div id="get-button-container">
+                    <button id="get-graph-button">Show Data</button>
+                    <button id="choose">Choose</button>
+                    <a id="reset" href="./index.html">Reset</a>
+                </div>    
+            </form>    
+        </div>
+
+        <div id="dimension-container">
+            <div id="input-form-container"></div>
+            <button id="row-size">submit</button>
+        </div>
+        
+        <div id="input-table-container">
+            
+            <div id="data-input-container" class="display-none">
+                <div id="data-input-header">
+                    <span>Data Input Form</span>
+                    <button id="next-column">Next</buttton>
+                </div>
+                <div id="data-input-form">
+                    
+                </div>
+            </div>
+            
+            
+            <div id="data-table" class="display-none">
+                <div id="table-header">
+                    <span>Table</span>
+                </div>
+                <div id="table-container">
+                    <table>
+                    </table>
+                </div>
+            </div>
+        </div>
+    
+    </main>
+
+    <footer>
+        
+        <div id="chart_div" style="max-width: 900px; max-height: 500px; margin: auto;"></div>
+        <div id="barchart_values" style="max-width: 900px; max-height: 500px; margin: auto;"></div>
+        <div id="piechart" style="width: 900px; max-height: 500px; margin: auto;"></div>
+        <div id="donutchart" style="width: 900px; max-height: 500px; margin: auto;"></div>
+        <div id="curve_chart" style="width: 900px; max-height: 500px; margin: auto;"></div>
+        <div id="regions_div" style="max-width: 900px; max-height: 500px; margin: auto;"></div>
+        <div id="wordtree_basic" style="max-width: 900px; max-height: 500px; margin: auto;"></div>
+    </footer>
+
+    <section id="download" class="display-none">
+        <a id="chartPng" download="">Download</a>
+    </section>
+
+    <section id="floating-about" class="animate__animated">
+        <div id="about">
+            <h1>
+                <span></span>
+               <button id="cancel">
+                <i class="far fa-times-circle" style="color: green; font-size: 1.2rem;"></i>
+               </button>
+            </h1>
+            <p>
+            </p>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
+    <script src="/js/index.js"></script>
+    <script src="/js/popup.js"></script>
+
+</body>
+</html>
