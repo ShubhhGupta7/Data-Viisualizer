@@ -18,6 +18,7 @@ header {
     height: 10vh;
     width: 100vw;
 
+    font-size: 1rem;
     font-family: Roboto;
     font-weight: 600;
 
@@ -29,7 +30,7 @@ header {
 
     border-bottom: lightgrey;
     box-shadow: 1px 0px 6px 1px lightgrey;
-    background-color: blue;
+    background-color: #005fff;
     color: white;
 
      letter-spacing: .5px;
@@ -56,7 +57,7 @@ header nav span a {
     color: white;
     text-decoration: none;
 
-    font-size: 1.2rem;
+    font-size: 1rem;
 
     font-weight: bold;
 }
@@ -64,10 +65,10 @@ header nav span a {
 header nav span a:hover {
     transition: all .5s;
 
-    font-size: 1.3rem;
+    font-size: 1.05rem;
     font-weight: bolder;
 
-    border-bottom: 3px solid;
+    border-bottom: 1px solid;
 }
 
 .desc {
@@ -81,7 +82,7 @@ header nav span a:hover {
     align-items: flex-start;
 
     font-size: 22px;
-    box-shadow: 1px 0px 6px 1px lightgrey;
+    box-shadow: 0px -4px 10px 0.1px #eae4e4;
 }
 
 .desc-text {

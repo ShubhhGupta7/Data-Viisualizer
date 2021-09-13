@@ -12,7 +12,7 @@ body {
 
     background-image: url('/images/bg2.jpg');
     background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-size: cover;
     background-attachment: fixed;
     min-width: 550px;
 }
@@ -23,6 +23,7 @@ header {
     height: 10vh;
     width: 100vw;
 
+    font-size: 1rem;
     font-family: Roboto;
     font-weight: 600;
 
@@ -35,7 +36,7 @@ header {
     border-bottom: lightgrey;
     
     
-    background-color: #0c2d30;
+    background-color: #0a2a2d;
     
     color: white;
     letter-spacing: .5px;
@@ -58,7 +59,7 @@ header nav span a {
     color: white;
     text-decoration: none;
 
-    font-size: 1.2rem;
+    font-size: 1rem;
     
     font-weight: bold;
 }
@@ -66,10 +67,10 @@ header nav span a {
 header nav span a:hover {
     transition: all .5s;
 
-    font-size: 1.3rem;
+    font-size: 1..05rem;
     font-weight: bolder;
 
-    border-bottom: 3px solid;
+    border-bottom: 1px solid;
 }
 
 main {
@@ -218,7 +219,7 @@ td {
   }
 
 #floating-about {
-    right: 32vw;
+    right: 10vw;
     top: 10vh;
     position: fixed;
     height: 20rem;
