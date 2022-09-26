@@ -1,7 +1,7 @@
 # Data-Viisualizer
 A web application that facilitates deriving meaningful insights from the data using visual representation like charts, graphs, maps etc.
 
-![Uploading Screenshot (24).png…]()
+![Screenshot (24)](https://user-images.githubusercontent.com/86280855/192287513-1fd8c98a-3486-4b18-b1c3-3e45e9fbce15.png)
 
 
 ![Screenshot (25)](https://user-images.githubusercontent.com/86280855/192286991-66c36fe7-5d2e-4943-a9d4-7985aef924e7.png)
